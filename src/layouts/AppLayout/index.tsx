@@ -3,12 +3,14 @@ import { seo_lists } from "./seo";
 import { Seo } from "@/components";
 import * as Styled from "./layout.styles";
 import { Header } from "./Header";
+import { AppSidebar } from "./AppSidebar";
 
 type Props = {
   name: string;
   title?: string;
   description?: string;
   image?: string;
+  noSidebar?: boolean;
 } & React.HTMLAttributes<HTMLElement>;
 
 export const AppLayout: React.FC<Props> = ({
@@ -17,6 +19,7 @@ export const AppLayout: React.FC<Props> = ({
   title,
   description,
   image,
+  noSidebar,
 }) => {
   const getSeoList = () => {
     if (seo_lists[name]) {
@@ -42,7 +45,12 @@ export const AppLayout: React.FC<Props> = ({
     <Styled.AppLayoutWrapper>
       <Seo {...props} />
       <Header />
-      <>{children}</>
+      <Styled.AppMainSection>
+        {!noSidebar && <AppSidebar />}
+        <Styled.AppMainContainer noSidebar={noSidebar ? "true" : undefined}>
+          {children}
+        </Styled.AppMainContainer>
+      </Styled.AppMainSection>
     </Styled.AppLayoutWrapper>
   );
 };

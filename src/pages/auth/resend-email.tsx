@@ -7,7 +7,7 @@ const ResentEmailPage: React.FC = () => {
   const router = useRouter();
   const { email } = router.query;
   return (
-    <AppLayout name="">
+    <AppLayout name="" noSidebar>
       <ResendEmailForm email={email} />
     </AppLayout>
   );

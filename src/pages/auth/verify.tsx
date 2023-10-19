@@ -33,7 +33,11 @@ const VerifyPage: React.FC = () => {
     }
   };
 
-  return <AppLayout name="">{loading ? <Loading /> : <Verified />}</AppLayout>;
+  return (
+    <AppLayout name="" noSidebar>
+      {loading ? <Loading /> : <Verified />}
+    </AppLayout>
+  );
 };
 
 export default VerifyPage;

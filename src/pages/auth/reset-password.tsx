@@ -4,7 +4,7 @@ import { ResetPasswordForm } from "@/modules/auth/reset-password";
 
 const ResetPasswordPage: React.FC = () => {
   return (
-    <AppLayout name="reset">
+    <AppLayout name="reset" noSidebar>
       <ResetPasswordForm />
     </AppLayout>
   );

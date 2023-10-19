@@ -4,7 +4,7 @@ import React from "react";
 
 const RegisterPage: React.FC = () => {
   return (
-    <AppLayout name="register">
+    <AppLayout name="register" noSidebar>
       <RegisterForm />
     </AppLayout>
   );

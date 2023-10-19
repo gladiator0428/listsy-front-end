@@ -4,7 +4,7 @@ import { MainSection } from "@/modules/profile/MainSection";
 
 const ChangePasswordPage: React.FC = () => {
   return (
-    <AppLayout name="profilePassword">
+    <AppLayout name="profilePassword" noSidebar>
       <MainSection page="changePassword" />
     </AppLayout>
   );

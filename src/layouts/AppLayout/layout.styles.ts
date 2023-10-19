@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const AppLayoutWrapper = styled.div``;
@@ -130,5 +131,147 @@ export const AuthListWrapper = styled.div<{ visible?: string }>`
     &:first-child {
       background: #eaeaea;
     }
+  }
+`;
+
+export const AppMainSection = styled.div`
+  display: flex;
+`;
+
+export const AppMainContainer = styled.div<{ noSidebar?: string }>`
+  width: 100%;
+  padding-left: ${({ noSidebar }) => (noSidebar ? "0" : "240px")};
+`;
+
+export const SidebarCommunity = styled.div`
+  margin: 12px 0;
+  padding: 12px 0;
+  border-top: 1px solid #424242;
+  border-bottom: 1px solid #424242;
+
+  h1 {
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+    svg {
+      cursor: pointer;
+    }
+  }
+`;
+
+export const SidebarMainNavItem = styled(Link)`
+  padding: 0 24px;
+  height: 40px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  color: #4b4b4b;
+  text-decoration: none;
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+  span {
+    margin-left: 24px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20.4px; /* 145.714% */
+  }
+  &:hover {
+    background: #eaeaea70;
+  }
+`;
+
+export const SidebarCountrySelect = styled.div`
+  margin-bottom: 20px;
+  p {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    span {
+      margin: 0 4px;
+      color: #000;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+`;
+
+export const AppSidebarWrapper = styled.div`
+  width: 240px;
+  position: fixed;
+  height: calc(100vh - 125px);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const AppSidebarContainer = styled.div`
+  flex: 1;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 90px;
+    transition: all 0.3s;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #ddd;
+  }
+`;
+
+export const AppSidebarFooter = styled.div`
+  padding: 30px 0;
+  h1 {
+    color: #afafaf;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+`;
+
+export const SidebarFooterNav = styled.div`
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: center;
+  a {
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+  }
+  & > :not(:first-child) {
+    margin-left: 12px;
+  }
+`;
+
+export const SidebarSocialNav = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #3e3e3ea1;
+  }
+  & > :not(:first-child) {
+    margin-left: 16px;
   }
 `;
