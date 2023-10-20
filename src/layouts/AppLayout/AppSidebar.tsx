@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import {
   FaLinkedin,
   FaInstagram,
@@ -12,14 +13,26 @@ import {
 } from "react-icons/fa";
 import {
   MdLocationOn,
+  MdSearch,
   MdOutlineKeyboardArrowDown,
   MdHome,
   MdShoppingCartCheckout,
   MdPets,
+  MdOutlineEmojiEmotions,
 } from "react-icons/md";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 import { RiMessage2Fill, RiServiceLine } from "react-icons/ri";
 import { PiPlusBold } from "react-icons/pi";
 import * as Styled from "./layout.styles";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { SERVER_URI, SERVER_UPLOAD_URI } from "@/config";
+import { Auth as AuthContext } from "@/context/contexts";
+import Image from "next/image";
+import { calcCompareTime } from "@/utils/calcCompareTime";
+
+const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
 const mainNav = [
   {
@@ -60,6 +73,78 @@ const mainNav = [
 ];
 
 export const AppSidebar: React.FC = () => {
+  const { authContext } = useContext<any>(AuthContext);
+  const [emojiShow, setEmojiShow] = useState(false);
+  const [communityShow, setCommunityShow] = useState(false);
+  const [communityValue, setCommunityValue] = useState("");
+  const [initCommunityData, setInitCommunityData] = useState<any>([]);
+  const emojiRef = useRef<any>(null);
+  const communityRef = useRef<any>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (emojiRef.current && !emojiRef.current.contains(event.target)) {
+        setEmojiShow(false);
+      }
+    };
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [emojiRef]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        communityRef.current &&
+        !communityRef.current.contains(event.target)
+      ) {
+        setCommunityShow(false);
+      }
+    };
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [communityRef]);
+
+  useEffect(() => {
+    getInitialCommunity();
+  }, []);
+
+  const getInitialCommunity = async () => {
+    const res = await axios.post(`${SERVER_URI}/community/getLatest`);
+    if (res.data.success) {
+      setInitCommunityData(res.data.data);
+    } else {
+      toast.error(res.data.message);
+    }
+  };
+
+  const handleAddCommunity = async () => {
+    if (!communityValue) {
+      toast.error("Please enter some contect to textbox.");
+    } else {
+      const res = await axios.post(`${SERVER_URI}/community/add`, {
+        userId: authContext.user?.id,
+        title: communityValue,
+        postDate: Date.now(),
+      });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setInitCommunityData(res.data.model);
+        setCommunityShow(false);
+        setCommunityValue("");
+      } else {
+        toast.error(res.data.message);
+      }
+    }
+  };
+
   return (
     <Styled.AppSidebarWrapper>
       <Styled.AppSidebarContainer>
@@ -81,8 +166,89 @@ export const AppSidebar: React.FC = () => {
         <Styled.SidebarCommunity>
           <h1>
             <span>Community</span>
-            <PiPlusBold size={20} />
+            <PiPlusBold
+              size={20}
+              onClick={() => {
+                setCommunityValue("");
+                setCommunityShow(true);
+              }}
+            />
           </h1>
+          <div>
+            {initCommunityData.map((item: any, key: number) => (
+              <React.Fragment key={key}>
+                <Styled.CommunityItem
+                  data-tooltip-id={"community-title-" + key}
+                >
+                  <div>
+                    {item.userId.avatar ? (
+                      <Image
+                        src={SERVER_UPLOAD_URI + item.userId.avatar}
+                        alt="avatar"
+                        width={24}
+                        height={24}
+                      />
+                    ) : (
+                      <h5>
+                        {item.userId?.firstName[0].toString().toUpperCase() +
+                          item.userId?.lastName[0].toString().toUpperCase()}
+                      </h5>
+                    )}
+
+                    <p>{item.userId.firstName + " " + item.userId.lastName}</p>
+                  </div>
+                  <span>
+                    {calcCompareTime(new Date().toString(), item.postDate)}
+                  </span>
+                  <ReactTooltip
+                    id={"community-title-" + key}
+                    place="top"
+                    content={item.title}
+                    style={{ width: 240, textAlign: "center" }}
+                  />
+                </Styled.CommunityItem>
+              </React.Fragment>
+            ))}
+            <Styled.CommunityItem>
+              <div>
+                <MdSearch size={24} />
+                <p>Browse Community</p>
+              </div>
+            </Styled.CommunityItem>
+          </div>
+          <Styled.AddCommunityPopup
+            ref={communityRef}
+            className={communityShow ? "show" : ""}
+          >
+            <div className="text-wrapper">
+              <textarea
+                placeholder="Write some text..."
+                onChange={(e) => setCommunityValue(e.target.value)}
+                value={communityValue}
+              ></textarea>
+              <span>0/5000</span>
+            </div>
+            <div className="action-wrapper">
+              <Styled.EmojiWrapper>
+                <MdOutlineEmojiEmotions
+                  size={24}
+                  onClick={() => setEmojiShow((prev) => !prev)}
+                />
+                <div className={emojiShow ? "show" : ""} ref={emojiRef}>
+                  <EmojiPicker
+                    onEmojiClick={(e) =>
+                      setCommunityValue((prev) => prev + e.emoji)
+                    }
+                    searchDisabled
+                    skinTonesDisabled
+                    autoFocusSearch={false}
+                    // emojiStyle={EmojiStyle.NATIVE}
+                  />
+                </div>
+              </Styled.EmojiWrapper>
+              <button onClick={handleAddCommunity}>Add Community</button>
+            </div>
+          </Styled.AddCommunityPopup>
         </Styled.SidebarCommunity>
         <div>
           <Styled.SidebarMainNavItem href={"/help"}>

@@ -148,9 +148,9 @@ export const SidebarCommunity = styled.div`
   padding: 12px 0;
   border-top: 1px solid #424242;
   border-bottom: 1px solid #424242;
-
+  position: relative;
   h1 {
-    padding: 8px 20px;
+    padding: 8px 10px 8px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -159,6 +159,141 @@ export const SidebarCommunity = styled.div`
     font-weight: 500;
     svg {
       cursor: pointer;
+    }
+  }
+`;
+
+export const CommunityItem = styled.div`
+  height: 40px;
+  padding: 0 10px 0 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: space-between;
+  & > div {
+    display: flex;
+    align-items: center;
+    img {
+      border-radius: 999px;
+      border: 1px solid #afafaf;
+    }
+    p {
+      margin-left: 20px;
+      color: #4b4b4b;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20.4px; /* 145.714% */
+    }
+    h5 {
+      background-color: #5a88ff;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+  span {
+    color: #afafaf;
+    font-size: 10px;
+    font-weight: 400;
+  }
+  &:hover {
+    background-color: #eaeaea;
+  }
+`;
+
+export const AddCommunityPopup = styled.div`
+  position: absolute;
+  right: -440px;
+  border: 1px solid red;
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 4px;
+    left: -10px;
+    box-shadow: 0px 18px 40px 0px rgba(180, 180, 180, 0.25);
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(-45deg);
+    border: 5px;
+  }
+  width: 425px;
+  border: 10px;
+  top: 16px;
+  box-shadow: 0px 18px 40px 0px rgba(180, 180, 180, 0.25);
+
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  .text-wrapper {
+    width: 100%;
+    position: relative;
+    textarea {
+      padding: 10px;
+      height: 245px;
+      resize: none;
+      border-radius: 5px;
+      border: 1px solid #afafaf;
+      outline: none;
+      width: 100%;
+    }
+    span {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      color: #afafaf;
+      font-size: 10px;
+      font-weight: 400;
+    }
+  }
+  .action-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    align-items: center;
+    & > button {
+      cursor: pointer;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+      background: #ff6f00;
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20.4px; /* 145.714% */
+      width: 135px;
+      height: 45px;
+    }
+  }
+`;
+
+export const EmojiWrapper = styled.div`
+  position: relative;
+  svg {
+    cursor: pointer;
+  }
+  & > div {
+    position: absolute;
+    bottom: 36px;
+    transition: all 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    &.show {
+      opacity: 1;
+      visibility: visible;
     }
   }
 `;
@@ -206,14 +341,14 @@ export const AppSidebarWrapper = styled.div`
   width: 240px;
   position: fixed;
   height: calc(100vh - 125px);
-  overflow: auto;
   display: flex;
   flex-direction: column;
 `;
 
 export const AppSidebarContainer = styled.div`
   flex: 1;
-  overflow: auto;
+  margin-bottom: 30px;
+  /* overflow: auto; */
   &::-webkit-scrollbar {
     width: 5px;
   }
