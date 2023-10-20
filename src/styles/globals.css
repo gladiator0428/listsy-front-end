@@ -28,3 +28,24 @@ p {
 * {
   box-sizing: border-box;
 }
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #eee;
+  border-radius: 90px;
+  transition: all 0.3s;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #ddd;
+}

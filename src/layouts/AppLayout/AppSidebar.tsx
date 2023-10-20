@@ -31,6 +31,7 @@ import { SERVER_URI, SERVER_UPLOAD_URI } from "@/config";
 import { Auth as AuthContext } from "@/context/contexts";
 import Image from "next/image";
 import { calcCompareTime } from "@/utils/calcCompareTime";
+import { CommunityViewModal } from "@/modules/community/communityModal";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
@@ -78,6 +79,8 @@ export const AppSidebar: React.FC = () => {
   const [communityShow, setCommunityShow] = useState(false);
   const [communityValue, setCommunityValue] = useState("");
   const [initCommunityData, setInitCommunityData] = useState<any>([]);
+  const [communityModal, setCommunityModal] = useState(false);
+  const [communityLoading, setCommunityLoading] = useState(true);
   const emojiRef = useRef<any>(null);
   const communityRef = useRef<any>(null);
 
@@ -117,8 +120,10 @@ export const AppSidebar: React.FC = () => {
   }, []);
 
   const getInitialCommunity = async () => {
+    setCommunityLoading(true);
     const res = await axios.post(`${SERVER_URI}/community/getLatest`);
     if (res.data.success) {
+      setCommunityLoading(false);
       setInitCommunityData(res.data.data);
     } else {
       toast.error(res.data.message);
@@ -132,6 +137,8 @@ export const AppSidebar: React.FC = () => {
       const res = await axios.post(`${SERVER_URI}/community/add`, {
         userId: authContext.user?.id,
         title: communityValue,
+        userFullName: authContext.user?.firstName + authContext.user?.lastName,
+
         postDate: Date.now(),
       });
       if (res.data.success) {
@@ -147,6 +154,10 @@ export const AppSidebar: React.FC = () => {
 
   return (
     <Styled.AppSidebarWrapper>
+      <CommunityViewModal
+        onClose={() => setCommunityModal(false)}
+        open={communityModal}
+      />
       <Styled.AppSidebarContainer>
         <Styled.SidebarCountrySelect>
           <p>
@@ -175,47 +186,56 @@ export const AppSidebar: React.FC = () => {
             />
           </h1>
           <div>
-            {initCommunityData.map((item: any, key: number) => (
-              <React.Fragment key={key}>
-                <Styled.CommunityItem
-                  data-tooltip-id={"community-title-" + key}
-                >
-                  <div>
-                    {item.userId.avatar ? (
-                      <Image
-                        src={SERVER_UPLOAD_URI + item.userId.avatar}
-                        alt="avatar"
-                        width={24}
-                        height={24}
-                      />
-                    ) : (
-                      <h5>
-                        {item.userId?.firstName[0].toString().toUpperCase() +
-                          item.userId?.lastName[0].toString().toUpperCase()}
-                      </h5>
-                    )}
+            {communityLoading ? (
+              <h5>Loading...</h5>
+            ) : initCommunityData.length > 0 ? (
+              initCommunityData.map((item: any, key: number) => (
+                <React.Fragment key={key}>
+                  <Styled.CommunityItem
+                    data-tooltip-id={"community-title-" + key}
+                  >
+                    <div>
+                      {item.userId.avatar ? (
+                        <Image
+                          src={SERVER_UPLOAD_URI + item.userId.avatar}
+                          alt="avatar"
+                          width={24}
+                          height={24}
+                        />
+                      ) : (
+                        <h5>
+                          {item.userId?.firstName[0].toString().toUpperCase() +
+                            item.userId?.lastName[0].toString().toUpperCase()}
+                        </h5>
+                      )}
 
-                    <p>{item.userId.firstName + " " + item.userId.lastName}</p>
-                  </div>
-                  <span>
-                    {calcCompareTime(new Date().toString(), item.postDate)}
-                  </span>
-                  <ReactTooltip
-                    id={"community-title-" + key}
-                    place="top"
-                    content={item.title}
-                    style={{ width: 240, textAlign: "center" }}
-                  />
-                </Styled.CommunityItem>
-              </React.Fragment>
-            ))}
-            <Styled.CommunityItem>
+                      <p>
+                        {item.userId.firstName + " " + item.userId.lastName}
+                      </p>
+                    </div>
+                    <span>
+                      {calcCompareTime(new Date().toString(), item.postDate)}
+                    </span>
+                    <ReactTooltip
+                      id={"community-title-" + key}
+                      place="top"
+                      content={item.title}
+                      style={{ width: 240, textAlign: "center" }}
+                    />
+                  </Styled.CommunityItem>
+                </React.Fragment>
+              ))
+            ) : (
+              <h5>No Community</h5>
+            )}
+            <Styled.CommunityItem onClick={() => setCommunityModal(true)}>
               <div>
                 <MdSearch size={24} />
                 <p>Browse Community</p>
               </div>
             </Styled.CommunityItem>
           </div>
+
           <Styled.AddCommunityPopup
             ref={communityRef}
             className={communityShow ? "show" : ""}

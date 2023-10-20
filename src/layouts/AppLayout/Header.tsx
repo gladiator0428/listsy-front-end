@@ -3,9 +3,9 @@ import Image from "next/image";
 import {
   IoMdMenu,
   IoIosSearch,
-  IoIosAdd,
   IoMdNotificationsOutline,
 } from "react-icons/io";
+import { PiUploadSimpleBold } from "react-icons/pi";
 import { TbLogin, TbUserPlus, TbUser, TbLogout } from "react-icons/tb";
 import * as Styled from "./layout.styles";
 import Link from "next/link";
@@ -70,7 +70,7 @@ export const Header: React.FC = () => {
           <IoIosSearch size={20} color="#AFAFAF" />
         </Styled.HeaderSearchInput>
         <div className="icon-wrapper">
-          <IoIosAdd size={24} />
+          <PiUploadSimpleBold size={24} />
         </div>
         <div className="icon-wrapper">
           <IoMdNotificationsOutline size={24} />

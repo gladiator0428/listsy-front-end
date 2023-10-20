@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const AppLayoutWrapper = styled.div``;
 
 export const HeaderWrapper = styled.div`
-  padding: 40px;
+  padding: 20px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,19 +136,33 @@ export const AuthListWrapper = styled.div<{ visible?: string }>`
 
 export const AppMainSection = styled.div`
   display: flex;
+  height: calc(100vh - 85px);
 `;
 
 export const AppMainContainer = styled.div<{ noSidebar?: string }>`
   width: 100%;
   padding-left: ${({ noSidebar }) => (noSidebar ? "0" : "240px")};
+  flex: 1;
+  overflow: auto;
+`;
+
+export const AppMainContent = styled.div`
+  padding: 0 20px;
 `;
 
 export const SidebarCommunity = styled.div`
   margin: 12px 0;
   padding: 12px 0;
-  border-top: 1px solid #424242;
-  border-bottom: 1px solid #424242;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
   position: relative;
+  h5 {
+    text-align: center;
+    color: #afafaf;
+    font-size: 10px;
+    font-weight: 400;
+    padding: 12px 0;
+  }
   h1 {
     padding: 8px 10px 8px 20px;
     display: flex;
@@ -169,6 +183,9 @@ export const CommunityItem = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  .react-tooltip {
+    word-break: break-all;
+  }
   justify-content: space-between;
   & > div {
     display: flex;
@@ -208,25 +225,14 @@ export const CommunityItem = styled.div`
 `;
 
 export const AddCommunityPopup = styled.div`
-  position: absolute;
-  right: -440px;
+  position: fixed;
+  bottom: 20px;
   border: 1px solid red;
-  &::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    top: 4px;
-    left: -10px;
-    box-shadow: 0px 18px 40px 0px rgba(180, 180, 180, 0.25);
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    transform: rotate(-45deg);
-    border: 5px;
-  }
+  background-color: #fff;
+  right: -425px;
+
   width: 425px;
   border: 10px;
-  top: 16px;
   box-shadow: 0px 18px 40px 0px rgba(180, 180, 180, 0.25);
 
   padding: 20px;
@@ -235,6 +241,7 @@ export const AddCommunityPopup = styled.div`
   transition: all 0.3s;
   &.show {
     opacity: 1;
+    right: 20px;
     visibility: visible;
   }
   .text-wrapper {
@@ -340,15 +347,17 @@ export const SidebarCountrySelect = styled.div`
 export const AppSidebarWrapper = styled.div`
   width: 240px;
   position: fixed;
-  height: calc(100vh - 125px);
+  height: calc(100vh - 85px);
   display: flex;
   flex-direction: column;
 `;
 
 export const AppSidebarContainer = styled.div`
   flex: 1;
-  margin-bottom: 30px;
+  /* margin-bottom: 20px; */
   /* overflow: auto; */
+  overflow-x: hidden;
+  padding: 10px 0 20px;
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -372,7 +381,8 @@ export const AppSidebarContainer = styled.div`
 `;
 
 export const AppSidebarFooter = styled.div`
-  padding: 30px 0;
+  padding: 20px 0;
+  border-top: 1px solid #ededed;
   h1 {
     color: #afafaf;
     text-align: center;

@@ -5,7 +5,7 @@ export const ProfilePageWrapper = styled.div`
   width: 100%;
   margin: auto;
   padding: 60px 0;
-  min-height: calc(100vh - 125px);
+  min-height: calc(100vh - 85px);
   display: flex;
 `;
 

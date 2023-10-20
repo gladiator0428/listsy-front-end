@@ -17,7 +17,7 @@ export const LoadingWrapper = styled.div`
     font-size: calc(16px + (24 - 16) * (100vw - 320px) / (2560 - 320));
   }
   div {
-    height: calc(100vh - 125px);
+    height: calc(100vh - 85px);
     background-color: var(--bg);
     color: var(--fg);
     display: flex;
