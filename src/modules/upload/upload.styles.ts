@@ -21,7 +21,7 @@ export const UploadModalContainer = styled.div`
   overflow: auto;
   margin-top: 5vh;
   background: #fff;
-  max-width: 700px;
+  max-width: 750px;
   width: 100%;
   overflow: auto;
   position: relative;
