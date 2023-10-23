@@ -30,8 +30,8 @@ import axios from "axios";
 import { SERVER_URI, SERVER_UPLOAD_URI } from "@/config";
 import { Auth as AuthContext } from "@/context/contexts";
 import Image from "next/image";
-import { calcCompareTime } from "@/utils/calcCompareTime";
-import { CommunityViewModal } from "@/modules/community/communityModal";
+import { calcCompareTime } from "@/utils";
+import { CommunityViewModal } from "@/modules/community";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 

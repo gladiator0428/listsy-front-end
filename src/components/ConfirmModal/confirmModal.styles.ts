@@ -7,8 +7,9 @@ export const ConfirmModalWrapper = styled.div<{ open?: string }>`
   left: 0;
   width: 100%;
   transition: all 0.4s;
+  text-align: center;
   height: 100%;
-  z-index: 999;
+  z-index: 99999;
   align-items: center;
   justify-content: center;
   opacity: ${({ open }) => (open ? 1 : 0)};

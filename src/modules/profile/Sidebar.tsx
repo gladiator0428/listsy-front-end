@@ -74,7 +74,7 @@ export const Sidebar: React.FC<Props> = ({ page }) => {
   //   });
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files?.length) {
       const formData = new FormData();
       formData.append("avatar", e.target.files[0]);
       formData.append("userId", authContext.user?.id);
@@ -90,7 +90,7 @@ export const Sidebar: React.FC<Props> = ({ page }) => {
   };
 
   return (
-    <Styled.SidebarWrapper>
+    <>
       <ConfirmModal
         open={deleteConfirmModal}
         onCancel={() => setDeleteConfirmModal(false)}
@@ -110,52 +110,56 @@ export const Sidebar: React.FC<Props> = ({ page }) => {
           </Styled.ConfirmPasswordWrapper>
         }
       />
-      <Styled.ProfileAvatarWrapper>
-        {authContext.user?.avatar ? (
-          <Image
-            src={SERVER_UPLOAD_URI + authContext.user?.avatar}
-            alt="user avatar"
-            width={150}
-            height={150}
-          />
-        ) : (
-          <Styled.EmptyAvatar>
-            {authContext.user?.firstName[0].toString().toUpperCase() +
-              authContext.user?.lastName[0].toString().toUpperCase()}
-          </Styled.EmptyAvatar>
-        )}
-        <label id="upload-avatar">
-          <input
-            type="file"
-            id="upload-avatar"
-            // hidden
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-            accept="image/png, image/gif, image/jpeg, image/avif, image/webp"
-          />
-          <AiOutlineCamera size={24} color="#fff" />
-        </label>
-      </Styled.ProfileAvatarWrapper>
-      <h1>{authContext.user?.firstName + " " + authContext.user?.lastName}</h1>
-      <h6>{authContext.user?.email}</h6>
-      {authContext.user?.bio && <p>{authContext.user?.bio}</p>}
-      <Styled.SidebarNavWrapper>
-        {sidebarNavs.map((item, key) => (
+      <Styled.SidebarWrapper>
+        <Styled.ProfileAvatarWrapper>
+          {authContext.user?.avatar ? (
+            <Image
+              src={SERVER_UPLOAD_URI + authContext.user?.avatar}
+              alt="user avatar"
+              width={150}
+              height={150}
+            />
+          ) : (
+            <Styled.EmptyAvatar>
+              {authContext.user?.firstName[0].toString().toUpperCase() +
+                authContext.user?.lastName[0].toString().toUpperCase()}
+            </Styled.EmptyAvatar>
+          )}
+          <label id="upload-avatar">
+            <input
+              type="file"
+              id="upload-avatar"
+              // hidden
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+              accept="image/png, image/gif, image/jpeg, image/avif, image/webp"
+            />
+            <AiOutlineCamera size={24} color="#fff" />
+          </label>
+        </Styled.ProfileAvatarWrapper>
+        <h1>
+          {authContext.user?.firstName + " " + authContext.user?.lastName}
+        </h1>
+        <h6>{authContext.user?.email}</h6>
+        {authContext.user?.bio && <p>{authContext.user?.bio}</p>}
+        <Styled.SidebarNavWrapper>
+          {sidebarNavs.map((item, key) => (
+            <Styled.NavItem
+              key={key}
+              active={page === item.page ? "true" : undefined}
+              onClick={() => router.push(item.href)}
+            >
+              {item.label}
+            </Styled.NavItem>
+          ))}
           <Styled.NavItem
-            key={key}
-            active={page === item.page ? "true" : undefined}
-            onClick={() => router.push(item.href)}
+            className="delete"
+            onClick={() => setDeleteConfirmModal(true)}
           >
-            {item.label}
+            Delete Account
           </Styled.NavItem>
-        ))}
-        <Styled.NavItem
-          className="delete"
-          onClick={() => setDeleteConfirmModal(true)}
-        >
-          Delete Account
-        </Styled.NavItem>
-      </Styled.SidebarNavWrapper>
-    </Styled.SidebarWrapper>
+        </Styled.SidebarNavWrapper>
+      </Styled.SidebarWrapper>
+    </>
   );
 };

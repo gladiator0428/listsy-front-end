@@ -5,18 +5,23 @@ import {
   IoIosSearch,
   IoMdNotificationsOutline,
 } from "react-icons/io";
-import { PiUploadSimpleBold } from "react-icons/pi";
+import { PiUploadSimple } from "react-icons/pi";
 import { TbLogin, TbUserPlus, TbUser, TbLogout } from "react-icons/tb";
 import * as Styled from "./layout.styles";
 import Link from "next/link";
 import { Auth as AuthContext } from "@/context/contexts";
 import { useRouter } from "next/router";
 import { SERVER_UPLOAD_URI } from "@/config";
+import { toast } from "react-toastify";
+import { UploadModal } from "@/modules/upload";
+import { ConfirmModal } from "@/components";
 
 export const Header: React.FC = () => {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [uploadModal, setUploadModal] = useState(false);
+  const [uploadCancelModal, setUploadCancelModal] = useState(false);
   const { authContext, setAuthContext } = useContext<any>(AuthContext);
   const wrapperRef = useRef<any>(null);
   useEffect(() => {
@@ -50,8 +55,34 @@ export const Header: React.FC = () => {
     router.push("/auth/login");
   };
 
+  const handleUploadClick = () => {
+    if (currentUser) {
+      setUploadModal(true);
+    } else {
+      toast.error("Please Sign In");
+      router.push("/auth/login");
+    }
+  };
+
   return (
     <Styled.HeaderWrapper>
+      <ConfirmModal
+        onCancel={() => setUploadCancelModal(false)}
+        open={uploadCancelModal}
+        cancelText="No"
+        okText="Yes"
+        onOk={() => {
+          setUploadCancelModal(false);
+          setUploadModal(false);
+        }}
+        type="warning"
+        description="If you close this modal, all data will be reset. Are you sure you want to close it?"
+        title="Are you sure?"
+      />
+      <UploadModal
+        open={uploadModal}
+        onClose={() => setUploadCancelModal(true)}
+      />
       <Styled.HeaderLogoWrapper>
         <div>
           <IoMdMenu size={40} />
@@ -70,7 +101,7 @@ export const Header: React.FC = () => {
           <IoIosSearch size={20} color="#AFAFAF" />
         </Styled.HeaderSearchInput>
         <div className="icon-wrapper">
-          <PiUploadSimpleBold size={24} />
+          <PiUploadSimple size={24} onClick={handleUploadClick} />
         </div>
         <div className="icon-wrapper">
           <IoMdNotificationsOutline size={24} />
