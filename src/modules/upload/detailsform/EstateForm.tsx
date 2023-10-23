@@ -1,5 +1,6 @@
 import React from "react";
 import * as Styled from "./details.styles";
+import { SingleSelection } from "@/components";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 export const EstateForm: React.FC = () => {
@@ -20,18 +21,7 @@ export const EstateForm: React.FC = () => {
         <textarea placeholder="Tell viewer about your video."></textarea>
         <span>0 / 5000</span>
       </Styled.TextAreaFormItem>
-      <Styled.SelectFormItem>
-        <p>Listing Type</p>
-        <Styled.Select>
-          <span className="placeholder">Select Lising Type</span>
-          <MdOutlineKeyboardArrowDown size={20} color="#AFAFAF" />
-        </Styled.Select>
-        <Styled.SelectOptionWrapper>
-          <p>Buying</p>
-          <p>Renting</p>
-          <p>Selling</p>
-        </Styled.SelectOptionWrapper>
-      </Styled.SelectFormItem>
+      <SingleSelection />
       <Styled.SelectFormItem>
         <p>Property Type</p>
         <Styled.Select>
