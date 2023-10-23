@@ -47,8 +47,10 @@ export const AppLayout: React.FC<Props> = ({
       <Header />
       <Styled.AppMainSection>
         {!noSidebar && <AppSidebar />}
-        <Styled.AppMainContainer noSidebar={noSidebar ? "true" : undefined}>
-          <Styled.AppMainContent>{children}</Styled.AppMainContent>
+        <Styled.AppMainContainer nosidebar={noSidebar ? "true" : undefined}>
+          <Styled.AppMainContent>
+            {children ? children : ""}
+          </Styled.AppMainContent>
         </Styled.AppMainContainer>
       </Styled.AppMainSection>
     </Styled.AppLayoutWrapper>

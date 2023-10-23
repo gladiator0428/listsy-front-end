@@ -28,65 +28,70 @@ export const UploadModal: React.FC<Props> = ({ open, onClose }) => {
   }, [open]);
 
   return (
-    <Styled.UploadModalWrapper open={open ? "true" : undefined}>
+    <Styled.UploadModalWrapper className={open ? "open" : ""}>
       <Styled.UploadModalContainer>
         <Styled.UploadModalHeader>
           <h3>{modalTitle[uploadStep]}</h3>
           <MdClose size={20} color="#AFAFAF" onClick={onClose} />
         </Styled.UploadModalHeader>
-        {uploadStep === "kind" && (
-          <>
-            <RadioSelect
-              data={kinds}
-              selected={kind}
-              title="What kind of thing do you want to post"
-              onChange={setKind}
+        <Styled.UploadModalBody>
+          {uploadStep === "kind" && (
+            <>
+              <RadioSelect
+                data={kinds}
+                selected={kind}
+                title="What kind of thing do you want to post"
+                onChange={setKind}
+              />
+              <Styled.UploadActionButtonWrapper>
+                <div />
+                <button
+                  className="next"
+                  onClick={() =>
+                    setUploadStep(kind === "job" ? "job" : "category")
+                  }
+                >
+                  Next
+                </button>
+              </Styled.UploadActionButtonWrapper>
+            </>
+          )}
+          {uploadStep === "category" && (
+            <>
+              <RadioSelect
+                data={categories}
+                selected={category}
+                title="Please select ads category"
+                onChange={setCategory}
+              />
+              <Styled.UploadActionButtonWrapper>
+                <button className="back" onClick={() => setUploadStep("kind")}>
+                  Back
+                </button>
+                <button
+                  className="next"
+                  onClick={() => setUploadStep("upload")}
+                >
+                  Next
+                </button>
+              </Styled.UploadActionButtonWrapper>
+            </>
+          )}
+          {uploadStep === "upload" && (
+            <UploadAsset
+              fileType={kind}
+              onNext={(adLink: string) => {
+                setUploadStep("detail");
+                setAdLink(adLink);
+              }}
             />
-            <Styled.UploadActionButtonWrapper>
-              <div />
-              <button
-                className="next"
-                onClick={() =>
-                  setUploadStep(kind === "job" ? "job" : "category")
-                }
-              >
-                Next
-              </button>
-            </Styled.UploadActionButtonWrapper>
-          </>
-        )}
-        {uploadStep === "category" && (
-          <>
-            <RadioSelect
-              data={categories}
-              selected={category}
-              title="Please select ads category"
-              onChange={setCategory}
-            />
-            <Styled.UploadActionButtonWrapper>
-              <button className="back" onClick={() => setUploadStep("kind")}>
-                Back
-              </button>
-              <button className="next" onClick={() => setUploadStep("upload")}>
-                Next
-              </button>
-            </Styled.UploadActionButtonWrapper>
-          </>
-        )}
-        {uploadStep === "upload" && (
-          <UploadAsset
-            fileType={kind}
-            onNext={(adLink: string) => {
-              setUploadStep("detail");
-              setAdLink(adLink);
-            }}
-          />
-        )}
-        {uploadStep === "detail" && (
-          <Details adLink={adLink} category={category} />
-        )}
-        {uploadStep === "image" && <UploadThumb />}
-        {uploadStep === "job" && <JobPost />}
+          )}
+          {uploadStep === "detail" && (
+            <Details adLink={adLink} category={category} />
+          )}
+          {uploadStep === "image" && <UploadThumb />}
+          {uploadStep === "job" && <JobPost />}
+        </Styled.UploadModalBody>
       </Styled.UploadModalContainer>
       <Styled.UploadModalOverlay onClick={onClose} />
     </Styled.UploadModalWrapper>

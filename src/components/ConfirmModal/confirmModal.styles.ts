@@ -12,8 +12,12 @@ export const ConfirmModalWrapper = styled.div<{ open?: string }>`
   z-index: 99999;
   align-items: center;
   justify-content: center;
-  opacity: ${({ open }) => (open ? 1 : 0)};
-  visibility: ${({ open }) => (open ? "visible" : "hidden")};
+  opacity: 0;
+  visibility: hidden;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
 `;
 
 export const ConfirmModalContainer = styled.div`
@@ -94,8 +98,12 @@ export const ModalOverlay = styled.div<{ open?: string }>`
   transition: all 0.4s;
   height: 100%;
   position: fixed;
-  opacity: ${({ open }) => (open ? 1 : 0)};
-  visibility: ${({ open }) => (open ? "visible" : "hidden")};
+  opacity: 0;
+  visibility: hidden;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
 `;
 
 export const ActionGroup = styled.div`

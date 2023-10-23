@@ -10,9 +10,13 @@ export const CommunityModalWrapper = styled.div<{ open?: string }>`
   align-items: center;
   justify-content: center;
   z-index: 999;
-  opacity: ${({ open }) => (open ? 1 : 0)};
   transition: all 0.3s;
-  visibility: ${({ open }) => (open ? "visible" : "hidden")};
+  opacity: 0;
+  visibility: hidden;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
 `;
 
 export const CommunityModalContainer = styled.div`

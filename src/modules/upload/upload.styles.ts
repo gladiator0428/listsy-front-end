@@ -9,8 +9,12 @@ export const UploadModalWrapper = styled.div<{ open?: string }>`
   display: flex;
   justify-content: center;
   transition: all 0.3s;
-  opacity: ${({ open }) => (open ? 1 : 0)};
-  visibility: ${({ open }) => (open ? "visible" : "hidden")};
+  opacity: 0;
+  visibility: hidden;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
   z-index: 999;
 `;
 
@@ -21,11 +25,13 @@ export const UploadModalContainer = styled.div`
   overflow: auto;
   margin-top: 5vh;
   background: #fff;
-  max-width: 750px;
+  max-width: 900px;
   width: 100%;
   overflow: auto;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const UploadModalOverlay = styled.div`
@@ -230,6 +236,49 @@ export const DetailsFormWrapper = styled.div`
 `;
 
 export const DetailsPreviewWrapper = styled.div`
-  width: 276px;
+  width: 350px;
   margin-left: 24px;
+`;
+
+export const VideoWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  video {
+    width: 100%;
+  }
+`;
+
+export const VideoInfoWrapper = styled.div`
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 10px;
+  div {
+    width: 80%;
+  }
+  span {
+    color: #000;
+    font-size: 10px;
+    font-weight: 400;
+  }
+  p {
+    color: #ff6f00;
+    font-size: 12px;
+    font-weight: 400;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 8px;
+  }
+  svg {
+    cursor: pointer;
+  }
+`;
+
+export const UploadModalBody = styled.div`
+  flex: 1;
+  overflow: auto;
 `;

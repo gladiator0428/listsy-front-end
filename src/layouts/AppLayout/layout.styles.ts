@@ -139,9 +139,9 @@ export const AppMainSection = styled.div`
   height: calc(100vh - 85px);
 `;
 
-export const AppMainContainer = styled.div<{ noSidebar?: string }>`
+export const AppMainContainer = styled.div<{ nosidebar?: string }>`
   width: 100%;
-  padding-left: ${({ noSidebar }) => (noSidebar ? "0" : "240px")};
+  padding-left: ${({ nosidebar }) => (nosidebar ? "0" : "240px")};
   flex: 1;
   overflow: auto;
 `;

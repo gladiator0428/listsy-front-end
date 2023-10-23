@@ -32,7 +32,7 @@ export const AppContext: React.FC<React.HTMLAttributes<HTMLElement>> = ({
 
   return (
     <Context.Auth.Provider value={authContextValue}>
-      {children}
+      {children ? children : ""}
     </Context.Auth.Provider>
   );
 };

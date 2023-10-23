@@ -24,7 +24,12 @@ export const RadioSelect: React.FC<Props> = ({
             key={key}
             onClick={() => onChange(item.key)}
           >
-            <input type="radio" id={item.key} checked={selected === item.key} />
+            <input
+              type="radio"
+              id={item.key}
+              checked={selected === item.key}
+              onChange={() => {}}
+            />
             <span>{item.label}</span>
           </label>
         ))}

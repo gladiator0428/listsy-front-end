@@ -6,7 +6,7 @@ type Props = {
   page: "setting" | "changePassword" | "posts";
 };
 
-export const MainSection: React.FC<Props> = ({ page }) => {
+export const MainSection: React.FC<Props> = ({ page = "setting" }) => {
   return (
     <Styled.ProfilePageWrapper>
       <Sidebar page={page} />

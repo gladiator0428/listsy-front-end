@@ -32,6 +32,7 @@ import { Auth as AuthContext } from "@/context/contexts";
 import Image from "next/image";
 import { calcCompareTime } from "@/utils";
 import { CommunityViewModal } from "@/modules/community";
+import { useRouter } from "next/router";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
@@ -83,6 +84,7 @@ export const AppSidebar: React.FC = () => {
   const [communityLoading, setCommunityLoading] = useState(true);
   const emojiRef = useRef<any>(null);
   const communityRef = useRef<any>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -131,24 +133,30 @@ export const AppSidebar: React.FC = () => {
   };
 
   const handleAddCommunity = async () => {
-    if (!communityValue) {
-      toast.error("Please enter some contect to textbox.");
-    } else {
-      const res = await axios.post(`${SERVER_URI}/community/add`, {
-        userId: authContext.user?.id,
-        title: communityValue,
-        userFullName: authContext.user?.firstName + authContext.user?.lastName,
-
-        postDate: Date.now(),
-      });
-      if (res.data.success) {
-        toast.success(res.data.message);
-        setInitCommunityData(res.data.model);
-        setCommunityShow(false);
-        setCommunityValue("");
+    if (authContext.user) {
+      if (!communityValue) {
+        toast.error("Please enter some contect to textbox.");
       } else {
-        toast.error(res.data.message);
+        const res = await axios.post(`${SERVER_URI}/community/add`, {
+          userId: authContext.user?.id,
+          title: communityValue,
+          userFullName:
+            authContext.user?.firstName + authContext.user?.lastName,
+
+          postDate: Date.now(),
+        });
+        if (res.data.success) {
+          toast.success(res.data.message);
+          setInitCommunityData(res.data.model);
+          setCommunityShow(false);
+          setCommunityValue("");
+        } else {
+          toast.error(res.data.message);
+        }
       }
+    } else {
+      toast.error("Please Sign In");
+      router.push("/auth/login");
     }
   };
 
@@ -195,7 +203,7 @@ export const AppSidebar: React.FC = () => {
                     data-tooltip-id={"community-title-" + key}
                   >
                     <div>
-                      {item.userId.avatar ? (
+                      {item.userId?.avatar ? (
                         <Image
                           src={SERVER_UPLOAD_URI + item.userId.avatar}
                           alt="avatar"
@@ -210,7 +218,7 @@ export const AppSidebar: React.FC = () => {
                       )}
 
                       <p>
-                        {item.userId.firstName + " " + item.userId.lastName}
+                        {item.userId?.firstName + " " + item.userId?.lastName}
                       </p>
                     </div>
                     <span>
@@ -243,10 +251,13 @@ export const AppSidebar: React.FC = () => {
             <div className="text-wrapper">
               <textarea
                 placeholder="Write some text..."
-                onChange={(e) => setCommunityValue(e.target.value)}
+                onChange={(e) =>
+                  e.target.value.length <= 5000 &&
+                  setCommunityValue(e.target.value)
+                }
                 value={communityValue}
               ></textarea>
-              <span>0/5000</span>
+              <span>{communityValue.length} / 5000</span>
             </div>
             <div className="action-wrapper">
               <Styled.EmojiWrapper>

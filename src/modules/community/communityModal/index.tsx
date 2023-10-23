@@ -65,7 +65,7 @@ export const CommunityViewModal: React.FC<CommunityModalProps> = ({
   };
 
   return (
-    <Styled.CommunityModalWrapper open={open ? "true" : undefined}>
+    <Styled.CommunityModalWrapper className={open ? "open" : ""}>
       <Styled.CommunityModalContainer>
         <h1>
           <span>Find Community</span>

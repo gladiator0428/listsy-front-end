@@ -21,7 +21,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
   content,
 }) => {
   return (
-    <Styled.ConfirmModalWrapper open={open ? "true" : undefined}>
+    <Styled.ConfirmModalWrapper className={open ? "open" : ""}>
       <Styled.ConfirmModalContainer className={open ? "open" : ""}>
         <span>{icons[type]}</span>
         <h1>{title}</h1>
@@ -34,7 +34,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
           <button onClick={onOk}>{okText ? okText : "Ok"}</button>
         </Styled.ActionGroup>
       </Styled.ConfirmModalContainer>
-      <Styled.ModalOverlay open={open ? "true" : undefined} />
+      <Styled.ModalOverlay className={open ? "open" : ""} />
     </Styled.ConfirmModalWrapper>
   );
 };
