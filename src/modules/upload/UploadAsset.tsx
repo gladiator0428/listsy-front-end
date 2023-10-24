@@ -17,6 +17,7 @@ export const UploadAsset: React.FC<Props> = ({ fileType, onNext }) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setFile(e.target.files[0]);
+      console.log(e.target.files[0].size);
     }
   };
 
@@ -28,6 +29,7 @@ export const UploadAsset: React.FC<Props> = ({ fileType, onNext }) => {
     const formData = new FormData();
     formData.append("fileType", fileType);
     formData.append("ad", file);
+    formData.append("uploadDate", Date.now().toString());
     const res = await axios.post(`${SERVER_URI}/asset/upload`, formData);
     if (res.data.success) {
       toast.success(res.data.message);

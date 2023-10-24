@@ -26,6 +26,8 @@ export const UploadModal: React.FC<Props> = ({ open, onClose, onFinish }) => {
       setKind(kinds[0].key);
       setCategory(categories[0].key);
       setUploadStep("kind");
+      setAdId("");
+      setAdLink("");
     }
   }, [open]);
 

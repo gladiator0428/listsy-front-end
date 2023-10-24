@@ -30,4 +30,16 @@ const formatBytes = (bytes: number, decimals = 2) => {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
 
-export { calcCompareTime, formatBytes };
+const getTimestamp = (time: number) => {
+  // var hours = parseInt(time / (60 * 60), 10);
+  var hours = parseInt((time / (60 * 60)).toString(), 10);
+  var minutes = parseInt((time / 60).toString(), 10);
+  var seconds = time % 60;
+  if (hours == 0) {
+    return minutes + ":" + seconds.toFixed(0);
+  } else {
+    return hours + ":" + minutes + ":" + seconds.toFixed(0);
+  }
+};
+
+export { calcCompareTime, formatBytes, getTimestamp };

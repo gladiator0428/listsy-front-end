@@ -26,6 +26,16 @@ export const seo_lists: { [any: string]: ISeoProps } = {
     description: "",
     image: "",
   },
+  estate: {
+    title: "",
+    description: "",
+    image: "",
+  },
+  ads_details: {
+    title: "",
+    description: "",
+    image: "",
+  },
   404: {
     title: "",
     description: "",

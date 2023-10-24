@@ -104,6 +104,7 @@ export const AuthListWrapper = styled.div<{ visible?: string }>`
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
   position: absolute;
+  z-index: 99;
   top: 38px;
   right: 0;
   display: flex;
@@ -143,11 +144,11 @@ export const AppMainContainer = styled.div<{ nosidebar?: string }>`
   width: 100%;
   padding-left: ${({ nosidebar }) => (nosidebar ? "0" : "240px")};
   flex: 1;
-  overflow: auto;
+  /* overflow: auto; */
 `;
 
 export const AppMainContent = styled.div`
-  padding: 0 20px;
+  height: 100%;
 `;
 
 export const SidebarCommunity = styled.div`

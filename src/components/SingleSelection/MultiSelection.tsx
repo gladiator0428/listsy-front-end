@@ -41,7 +41,7 @@ export const MultiSelection: React.FC<Props> = ({
 
   return (
     <Styled.SelectFormItem ref={ref}>
-      <p>{label}</p>
+      {label && <p>{label}</p>}
       <Styled.Select onClick={() => setIsOpen((prev) => !prev)}>
         <span className={value?.length ? "" : "placeholder"}>
           {value?.length

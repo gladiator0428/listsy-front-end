@@ -49,7 +49,7 @@ const mainNav = [
   },
   {
     label: "Real Estate",
-    href: "/realestate",
+    href: "/estate",
     icon: <FaBuilding />,
   },
   {
