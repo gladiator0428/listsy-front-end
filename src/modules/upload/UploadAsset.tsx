@@ -1,19 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import * as Styled from "./upload.styles";
 import { MdClose, MdUpload } from "react-icons/md";
 import { formatBytes } from "@/utils";
-import { Auth as AuthContext } from "@/context/contexts";
 import axios from "axios";
 import { SERVER_URI } from "@/config";
 import { toast } from "react-toastify";
 
 type Props = {
   fileType: string;
-  onNext: (adLink: string) => void;
+  onNext: (adLink: string, adId: string) => void;
 };
 
 export const UploadAsset: React.FC<Props> = ({ fileType, onNext }) => {
-  const { authContext } = useContext<any>(AuthContext);
   const [file, setFile] = useState<any>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,13 +26,12 @@ export const UploadAsset: React.FC<Props> = ({ fileType, onNext }) => {
 
   const handleUpload = async () => {
     const formData = new FormData();
-    formData.append("userId", authContext.user?.id);
     formData.append("fileType", fileType);
     formData.append("ad", file);
-    const res = await axios.post(`${SERVER_URI}/estate/uploadAd`, formData);
+    const res = await axios.post(`${SERVER_URI}/asset/upload`, formData);
     if (res.data.success) {
       toast.success(res.data.message);
-      onNext(res.data.model.adFileName);
+      onNext(res.data.model.adFileName, res.data.model._id);
     } else {
       toast.error(res.data.message);
     }

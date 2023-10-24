@@ -42,7 +42,6 @@ export const RegisterForm: React.FC = () => {
       } else {
         toast.error(res.data.message);
       }
-      // console.log(res.data);
     }
   };
 

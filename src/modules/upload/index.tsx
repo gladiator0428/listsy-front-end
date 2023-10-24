@@ -10,14 +10,16 @@ import { JobPost } from "./JobPost";
 
 type Props = {
   open: boolean;
-  onClose: () => void;
+  onClose: (adId: string, adType: string) => void;
+  onFinish: () => void;
 };
 
-export const UploadModal: React.FC<Props> = ({ open, onClose }) => {
+export const UploadModal: React.FC<Props> = ({ open, onClose, onFinish }) => {
   const [kind, setKind] = useState(kinds[0].key);
   const [category, setCategory] = useState(categories[0].key);
   const [uploadStep, setUploadStep] = useState("kind");
   const [adLink, setAdLink] = useState("");
+  const [adId, setAdId] = useState("");
 
   useEffect(() => {
     if (open) {
@@ -27,12 +29,16 @@ export const UploadModal: React.FC<Props> = ({ open, onClose }) => {
     }
   }, [open]);
 
+  const handleClose = () => {
+    onClose(adId, category);
+  };
+
   return (
     <Styled.UploadModalWrapper className={open ? "open" : ""}>
       <Styled.UploadModalContainer>
         <Styled.UploadModalHeader>
           <h3>{modalTitle[uploadStep]}</h3>
-          <MdClose size={20} color="#AFAFAF" onClick={onClose} />
+          <MdClose size={20} color="#AFAFAF" onClick={handleClose} />
         </Styled.UploadModalHeader>
         <Styled.UploadModalBody>
           {uploadStep === "kind" && (
@@ -80,20 +86,28 @@ export const UploadModal: React.FC<Props> = ({ open, onClose }) => {
           {uploadStep === "upload" && (
             <UploadAsset
               fileType={kind}
-              onNext={(adLink: string) => {
+              onNext={(adLink: string, adId: string) => {
                 setUploadStep("detail");
                 setAdLink(adLink);
+                setAdId(adId);
               }}
             />
           )}
           {uploadStep === "detail" && (
-            <Details adLink={adLink} category={category} />
+            <Details
+              adLink={adLink}
+              adId={adId}
+              category={category}
+              onNext={() => setUploadStep("image")}
+            />
           )}
-          {uploadStep === "image" && <UploadThumb />}
+          {uploadStep === "image" && (
+            <UploadThumb adId={adId} onFinish={onFinish} />
+          )}
           {uploadStep === "job" && <JobPost />}
         </Styled.UploadModalBody>
       </Styled.UploadModalContainer>
-      <Styled.UploadModalOverlay onClick={onClose} />
+      <Styled.UploadModalOverlay onClick={handleClose} />
     </Styled.UploadModalWrapper>
   );
 };

@@ -78,6 +78,7 @@ export const Select = styled.div`
 `;
 
 export const InputFormItem = styled.div`
+  display: flex;
   height: 34px;
   border-radius: 5px;
   border: 1px solid #afafaf;
@@ -85,7 +86,7 @@ export const InputFormItem = styled.div`
   input {
     outline: none;
     border: none;
-    width: 100%;
+    flex: 1;
     height: 100%;
     font-size: 12px;
     font-weight: 400;
@@ -129,5 +130,20 @@ export const SelectOptionWrapper = styled.div`
     &:hover {
       background: #00000010;
     }
+  }
+`;
+
+export const InputSelectWrapper = styled.div`
+  border-left: 1px solid #afafaf;
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
+  select {
+    padding-left: 6px;
+    border: none;
+    outline: none;
+    height: 100%;
+    /* appearance: none; */
+    color: #afafaf;
   }
 `;

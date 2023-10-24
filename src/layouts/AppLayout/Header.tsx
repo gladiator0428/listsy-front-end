@@ -11,10 +11,11 @@ import * as Styled from "./layout.styles";
 import Link from "next/link";
 import { Auth as AuthContext } from "@/context/contexts";
 import { useRouter } from "next/router";
-import { SERVER_UPLOAD_URI } from "@/config";
+import { SERVER_UPLOAD_URI, SERVER_URI } from "@/config";
 import { toast } from "react-toastify";
 import { UploadModal } from "@/modules/upload";
 import { ConfirmModal } from "@/components";
+import axios from "axios";
 
 export const Header: React.FC = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ export const Header: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [uploadModal, setUploadModal] = useState(false);
   const [uploadCancelModal, setUploadCancelModal] = useState(false);
+  const [uploadInfo, setUploadInfo] = useState({ adId: "", adType: "" });
   const { authContext, setAuthContext } = useContext<any>(AuthContext);
   const wrapperRef = useRef<any>(null);
   useEffect(() => {
@@ -64,6 +66,21 @@ export const Header: React.FC = () => {
     }
   };
 
+  const handleUploadCancel = async () => {
+    if (uploadInfo.adId) {
+      const res = await axios.post(`${SERVER_URI}/upload/cancel`, uploadInfo);
+      if (res.data.success) {
+        setUploadModal(false);
+      } else {
+        toast.error(res.data.message);
+      }
+      setUploadCancelModal(false);
+    } else {
+      setUploadModal(false);
+      setUploadCancelModal(false);
+    }
+  };
+
   return (
     <Styled.HeaderWrapper>
       <ConfirmModal
@@ -71,17 +88,18 @@ export const Header: React.FC = () => {
         open={uploadCancelModal}
         cancelText="No"
         okText="Yes"
-        onOk={() => {
-          setUploadCancelModal(false);
-          setUploadModal(false);
-        }}
+        onOk={handleUploadCancel}
         type="warning"
         description="If you close this modal, all data will be reset. Are you sure you want to close it?"
         title="Are you sure?"
       />
       <UploadModal
         open={uploadModal}
-        onClose={() => setUploadCancelModal(true)}
+        onClose={(adId, adType) => {
+          setUploadInfo({ adId, adType });
+          setUploadCancelModal(true);
+        }}
+        onFinish={() => setUploadModal(false)}
       />
       <Styled.HeaderLogoWrapper>
         <div>

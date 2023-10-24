@@ -193,6 +193,7 @@ export const CommunityItem = styled.div`
     img {
       border-radius: 999px;
       border: 1px solid #afafaf;
+      object-fit: cover;
     }
     p {
       margin-left: 20px;

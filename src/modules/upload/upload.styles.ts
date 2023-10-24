@@ -282,3 +282,145 @@ export const UploadModalBody = styled.div`
   flex: 1;
   overflow: auto;
 `;
+
+export const PriceInputWrapper = styled.div`
+  margin-top: 24px;
+  width: 100%;
+  p {
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  div {
+    width: 100%;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    select {
+      appearance: none;
+      outline: none;
+      text-align: center;
+      height: 100%;
+      width: 44px;
+      border: none;
+      border-radius: 5px 0px 0px 5px;
+      background: #eaeaea;
+      color: #afafaf;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    input {
+      padding: 0 8px;
+      height: 100%;
+      flex: 1;
+      border: 1px solid #afafaf;
+      border-left: none;
+      border-radius: 0 5px 5px 0;
+      outline: none;
+    }
+  }
+`;
+
+export const ImagesPreviewWrapper = styled.div`
+  padding: 0 30px 30px;
+
+  .swiper-slide {
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    img {
+      object-fit: cover;
+      transition: all 0.3s;
+      border: 1px solid transparent;
+    }
+    &:hover {
+    }
+    &.selected {
+      img {
+        border: 1px solid #ff6f00;
+      }
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    &::after {
+      font-size: 30px !important;
+      color: #000000;
+      font-weight: 900;
+    }
+  }
+  .add-more-file {
+    label {
+      cursor: pointer;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+    border: 1px dashed #ededed;
+    height: 150px;
+  }
+`;
+
+export const ImagePreview = styled.div`
+  position: relative;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: all 0.3s;
+    right: 0;
+  }
+  img {
+    object-fit: cover;
+  }
+  svg {
+    position: absolute;
+    transition: all 0.3s;
+    opacity: 0;
+    z-index: 1;
+    cursor: pointer;
+    visibility: hidden;
+  }
+  &:hover {
+    &::after {
+      background: #ffffff50;
+      backdrop-filter: blur(1px);
+    }
+    svg {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`;
+
+export const SaveButtonWrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  button {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: #ff6f00;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+    width: 100px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+`;

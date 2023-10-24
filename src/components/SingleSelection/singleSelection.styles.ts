@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 export const SelectOptionWrapper = styled.div`
+  &.direction-top {
+    bottom: 40px;
+    margin-top: 0;
+  }
   position: absolute;
   width: 100%;
   padding: 6px 0;
@@ -9,11 +13,28 @@ export const SelectOptionWrapper = styled.div`
   border-radius: 5px;
   margin-top: 5px;
   z-index: 1;
-  p {
-    margin: 0;
-    padding: 6px 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.1s;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  p,
+  label {
+    margin-bottom: 0 !important;
+    padding: 8px 6px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
     transition: all 0.3s;
+    span {
+      margin-left: 4px;
+    }
+    input {
+      accent-color: #000;
+    }
     &:hover {
       background: #00000010;
     }
@@ -22,7 +43,8 @@ export const SelectOptionWrapper = styled.div`
 
 export const SelectFormItem = styled.div`
   position: relative;
-  p {
+  p,
+  label {
     color: #000;
     font-size: 12px;
     font-weight: 400;
