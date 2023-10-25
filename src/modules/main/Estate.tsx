@@ -27,7 +27,6 @@ export const EstatePageSection: React.FC = () => {
       index,
     });
     if (res.data.success) {
-      console.log(index);
       if (index > 0) {
         setData((prev: any) => [...prev, ...res.data.data]);
       } else {
@@ -42,15 +41,6 @@ export const EstatePageSection: React.FC = () => {
       toast.error(res.data.message);
     }
   };
-
-  // const handleSearch = async () => {
-  //   // const res = await axios.post(`${SERVER_URI}/estate/getEstateObjects`, {
-  //   //   ...filter,
-  //   //   index: getIndex,
-  //   // });
-  //   // if (res.data.success) {
-  //   // }
-  // };
 
   return (
     <Styled.MainPageSectionWrapper>
@@ -113,6 +103,7 @@ export const EstatePageSection: React.FC = () => {
               <CardItem
                 id={item.adId._id}
                 key={key}
+                type={"estate"}
                 link={item.adId?.adFileName}
                 postDate={item.adId?.uploadDate}
                 price={item.price}
@@ -122,6 +113,8 @@ export const EstatePageSection: React.FC = () => {
                 subtitle={item.subTitle}
                 title={item.title}
                 userAvatar={item.userId?.avatar}
+                firstName={item.userId?.firstName}
+                lastName={item.userId?.lastName}
                 viewCount={item.viewCount}
                 duration={item.adId?.duration}
               />

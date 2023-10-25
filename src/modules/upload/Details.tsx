@@ -7,6 +7,7 @@ import { EstateForm } from "./detailsform";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Auth as AuthContext } from "@/context/contexts";
+import { TruckForm } from "./detailsform/TruckForm";
 
 type Props = {
   adLink: string;
@@ -53,10 +54,31 @@ export const Details: React.FC<Props> = ({
     }
   };
 
+  const handleTruckFormSave = async (data: any) => {
+    console.log(data);
+    if (Number(price) === 0) {
+      toast.error("Enter the Price!");
+    } else {
+      const res = await axios.post(`${SERVER_URI}/truck/loadVehicleInfo`, {
+        ...data,
+        price,
+        priceUnit,
+        adId,
+        userId: authContext.user?.id,
+      });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        onNext();
+      } else {
+        toast.error(res.data.message);
+      }
+    }
+  };
+
   const formComp: any = {
     sales: "sales",
     estate: <EstateForm onSave={handleEstateFormSave} />,
-    truck: "truck",
+    truck: <TruckForm onSave={handleTruckFormSave} />,
     service: "service",
     pet: "pet",
   };

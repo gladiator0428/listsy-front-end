@@ -109,3 +109,18 @@ export const VideoInfoWrapper = styled.div`
     }
   }
 `;
+
+export const UserAvatar = styled.div`
+  max-width: 36px;
+  width: 36px;
+  background: #5a88ff;
+  border-radius: 999px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  margin-left: 0 !important;
+`;

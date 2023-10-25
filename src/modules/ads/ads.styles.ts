@@ -128,6 +128,19 @@ export const VideoInfoWrapper = styled.div`
   }
 `;
 
+export const UserAvatar = styled.div`
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5a88ff;
+  margin: 0 !important;
+  border-radius: 9999px;
+  color: #fff;
+  font-size: 30px;
+`;
+
 export const UserInfoWrapper = styled.div`
   display: flex;
   align-items: center;

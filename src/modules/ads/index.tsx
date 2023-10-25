@@ -16,10 +16,11 @@ import { Rating } from "react-simple-star-rating";
 import { BsBookmark, BsFlag, BsSend } from "react-icons/bs";
 import { BiLike } from "react-icons/bi";
 import { Estate } from "./Estate";
+import { Truck } from "./Truck";
 
 export const AdsDetailsSection: React.FC = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, type } = router.query;
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -29,14 +30,15 @@ export const AdsDetailsSection: React.FC = () => {
   }, [id]);
 
   const getData = async () => {
-    const res = await axios.post(`${SERVER_URI}/estate/getAdDetailInfo`, {
+    console.log(id, type);
+    const res = await axios.post(`${SERVER_URI}/${type}/getAdDetailInfo`, {
       adId: id,
     });
     if (res.data.success) {
       setData(res.data.data);
     } else {
       toast.error(res.data.error);
-      router.back();
+      // router.back();
     }
   };
 
@@ -61,12 +63,18 @@ export const AdsDetailsSection: React.FC = () => {
               </h1>
               <Styled.UserInfoWrapper>
                 <div className="user-info">
-                  <Image
-                    src={`${SERVER_UPLOAD_URI + data?.userId?.avatar}`}
-                    alt="avatar"
-                    width={60}
-                    height={60}
-                  />
+                  {data?.userId?.avatar ? (
+                    <Image
+                      src={`${SERVER_UPLOAD_URI + data?.userId?.avatar}`}
+                      alt="avatar"
+                      width={60}
+                      height={60}
+                    />
+                  ) : (
+                    <Styled.UserAvatar>
+                      {data?.userId?.firstName[0] + data?.userId?.lastName[0]}
+                    </Styled.UserAvatar>
+                  )}
                   <div>
                     <h5>
                       <span>
@@ -137,7 +145,8 @@ export const AdsDetailsSection: React.FC = () => {
               ))}
             </Swiper>
             <Styled.AdsDetailsInfoWrapper>
-              <Estate data={data} />
+              {type === "estate" && <Estate data={data} />}
+              {type === "truck" && <Truck data={data} />}
             </Styled.AdsDetailsInfoWrapper>
           </Styled.AdsDetailsThumbWrapper>
         </Styled.AdsDetailsContainer>

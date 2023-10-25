@@ -18,15 +18,19 @@ type Props = {
   reviewMark: number;
   reviewCount: number;
   price: number;
+  firstName: string;
+  lastName: string;
   priceUnit: string;
   postDate: string;
   id: string;
   duration: number;
+  type: string;
 };
 
 export const CardItem: React.FC<Props> = ({
   link,
   id,
+  type,
   postDate,
   price,
   priceUnit,
@@ -35,6 +39,8 @@ export const CardItem: React.FC<Props> = ({
   subtitle,
   duration = 0,
   title,
+  firstName,
+  lastName,
   userAvatar,
   viewCount,
 }) => {
@@ -49,19 +55,24 @@ export const CardItem: React.FC<Props> = ({
           videoRef.current.pause();
           videoRef.current.currentTime = 0;
         }}
-        onClick={() => router.push(`/ads/${id}`)}
+        onClick={() => router.push(`/ads/${type}/${id}`)}
       >
         <video ref={videoRef} src={`${SERVER_UPLOAD_URI + link}`}></video>
         <VideoPlayIcon />
         <span>{getTimestamp(Number(duration))}</span>
       </Styled.VideoWrapper>
       <Styled.VideoInfoWrapper>
-        <Image
-          src={`${SERVER_UPLOAD_URI + userAvatar}`}
-          alt="avatar"
-          width={36}
-          height={36}
-        />
+        {userAvatar ? (
+          <Image
+            src={`${SERVER_UPLOAD_URI + userAvatar}`}
+            alt="avatar"
+            width={36}
+            height={36}
+          />
+        ) : (
+          <Styled.UserAvatar>{firstName[0] + lastName[0]}</Styled.UserAvatar>
+        )}
+
         <div>
           <h1>{title}</h1>
           <div className="">
@@ -74,7 +85,7 @@ export const CardItem: React.FC<Props> = ({
             <div>
               <Rating
                 initialValue={reviewMark}
-                size={24}
+                size={12}
                 disableFillHover
                 allowHover={false}
                 readonly
