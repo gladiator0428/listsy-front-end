@@ -106,7 +106,7 @@ export const LoginForm: React.FC = () => {
       <Comp.SocialButtonGroup />
       <h6>
         {"Don’t have account? Please "}
-        <Link href={"/auth/register"}>Signup</Link>
+        <Link href={"/auth/register"}>Sign up</Link>
         {" now."}
       </h6>
     </Styled.LoginFormWrapper>

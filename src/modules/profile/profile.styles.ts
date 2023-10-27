@@ -4,9 +4,10 @@ export const ProfilePageWrapper = styled.div`
   max-width: 1600px;
   width: 100%;
   margin: auto;
-  padding: 60px 0;
+  padding: 30px 0;
   min-height: calc(100vh - 85px);
   display: flex;
+  height: 100%;
 `;
 
 export const SidebarWrapper = styled.div`
@@ -40,7 +41,7 @@ export const SidebarWrapper = styled.div`
 `;
 
 export const MainSectionWrapper = styled.div`
-  padding: 50px 64px;
+  /* padding: 0 64px; */
   flex: 1;
 `;
 
@@ -113,6 +114,7 @@ export const NavItem = styled.div<{ active?: string }>`
 `;
 
 export const SettingPageWrapper = styled.div`
+  padding: 50px 64px;
   h1 {
     color: #000;
     font-size: 32px;
@@ -241,6 +243,7 @@ export const ConfirmPasswordWrapper = styled.div`
 
 export const ChangePasswordPageWrapper = styled.div`
   max-width: 680px;
+  padding: 50px 64px;
   width: 100%;
   margin: auto;
   h1 {
@@ -286,4 +289,182 @@ export const PasswordInputGroup = styled.div`
     }
   }
 `;
-export const PostsPageWrapper = styled.div``;
+export const PostsPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+export const PostsFilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+`;
+
+export const PostsPageFilterWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    border-radius: 100px;
+    padding: 6px 12px;
+    margin-right: 8px;
+    transition: all 0.3s;
+    font-size: 10px;
+    font-weight: 400;
+    background: #eaeaea;
+    color: #000;
+    line-height: 20.4px; /* 145.714% */
+    cursor: pointer;
+    &.active {
+      background: #ff6f00;
+      color: #fff;
+    }
+  }
+`;
+
+export const StatusWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: 8px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 10px;
+    font-weight: 400;
+    opacity: 0.2;
+    line-height: 13.9px; /* 139% */
+    display: flex;
+    align-items: center;
+    &::before {
+      content: "";
+      margin-right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 8px;
+    }
+    &.Active {
+      &::before {
+        background: #6ce243;
+      }
+    }
+    &.Suspended {
+      &::before {
+        background: #ff9b00;
+      }
+    }
+    &.Expired {
+      &::before {
+        background: #ff3e00;
+      }
+    }
+    &.selected {
+      opacity: 1;
+    }
+  }
+`;
+
+export const PostsGridWrapper = styled.div`
+  margin-top: 20px;
+  flex: 1;
+  overflow: auto;
+  h4 {
+    padding: 0 30px;
+    text-align: center;
+  }
+  .infinite-scroll-component {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px;
+    padding: 0 30px 50px;
+  }
+`;
+
+export const PostsListWrapper = styled.div`
+  padding: 20px 30px 50px;
+  flex: 1;
+  height: calc(100% - 2px);
+  .infinite-scroll-component {
+    border-top: 1px solid #afafaf50;
+  }
+`;
+
+export const JobDetailsWrapper = styled.div`
+  width: 40%;
+  overflow: auto;
+  & > p {
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+  }
+`;
+
+export const ProposalDetailsWrapper = styled.div`
+  padding: 14px 24px;
+  border-bottom: 1px solid #afafaf50;
+  p {
+    white-space: pre-line;
+    color: #000;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    img {
+      object-fit: cover;
+      border-radius: 999px;
+      border: 1px solid #afafaf;
+    }
+    span {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #5a88ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+    }
+    h3 {
+      margin-left: 12px;
+      color: #000;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+  h5 {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    line-height: 20.4px; /* 145.714% */
+  }
+  a {
+    color: #ff6f00;
+    font-size: 12px;
+    display: flex;
+    width: fit-content;
+    margin-bottom: 4px;
+    font-weight: 300;
+  }
+  button {
+    border-radius: 5px;
+    background: #ff6f00;
+    height: 30px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    outline: none;
+    display: block;
+    width: 120px;
+    margin-left: auto;
+    margin-top: 20px;
+    /* width: fit-content; */
+    line-height: 20.4px; /* 145.714% */
+  }
+`;

@@ -19,11 +19,16 @@ type Props = {
   reviewCount: number;
   price: number;
   firstName: string;
+  isBoost?: boolean;
   lastName: string;
   priceUnit: string;
   postDate: string;
+  adStatus?: string;
   id: string;
   duration: number;
+  country: string;
+  state: string;
+  city: string;
   type: string;
 };
 
@@ -38,10 +43,15 @@ export const CardItem: React.FC<Props> = ({
   reviewMark,
   subtitle,
   duration = 0,
+  isBoost,
   title,
   firstName,
+  country,
+  state,
+  city,
   lastName,
   userAvatar,
+  adStatus,
   viewCount,
 }) => {
   const router = useRouter();
@@ -57,7 +67,7 @@ export const CardItem: React.FC<Props> = ({
         }}
         onClick={() => router.push(`/ads/${type}/${id}`)}
       >
-        <video ref={videoRef} src={`${SERVER_UPLOAD_URI + link}`}></video>
+        <video ref={videoRef} src={`${SERVER_UPLOAD_URI + link}`} muted></video>
         <VideoPlayIcon />
         <span>{getTimestamp(Number(duration))}</span>
       </Styled.VideoWrapper>
@@ -74,7 +84,10 @@ export const CardItem: React.FC<Props> = ({
         )}
 
         <div>
-          <h1>{title}</h1>
+          <h1>
+            <b>{title}</b>
+            {adStatus && <span className={adStatus} />}
+          </h1>
           <div className="">
             <h2>{subtitle}</h2>
             <span>
@@ -98,10 +111,16 @@ export const CardItem: React.FC<Props> = ({
               {priceUnit} {price.toFixed(2)}
             </h3>
           </div>
-          <div>
+          <div className="location">
             <p>
               <MdLocationOn size={12} />
-              <span>United States</span>
+              {country ? (
+                <span>
+                  {city && city}, {state && state}, {country}
+                </span>
+              ) : (
+                <span>Worldwide</span>
+              )}
             </p>
             <p>
               <BsClock size={12} />
@@ -109,6 +128,7 @@ export const CardItem: React.FC<Props> = ({
             </p>
           </div>
         </div>
+        {isBoost && <button>Boost</button>}
       </Styled.VideoInfoWrapper>
     </Styled.CardItemWrapper>
   );

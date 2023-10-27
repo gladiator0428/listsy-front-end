@@ -114,7 +114,6 @@ export const ProfileSetting: React.FC = () => {
             }
             value={form.telephoneNumber}
           />
-          <input type="text" placeholder="Address" readOnly />
         </Styled.FormGroup>
       </Styled.SettingFormWrapper>
       {editable ? (

@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 export const AppContext: React.FC<React.HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
+  const [loading, setLoading] = useState(true);
   const [authContext, setAuthContext] = useState<any>({
     user: null,
     remember: null,
@@ -30,9 +31,15 @@ export const AppContext: React.FC<React.HTMLAttributes<HTMLElement>> = ({
     }
   }, [typeof window !== "undefined" ? window.localStorage.token : false]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <Context.Auth.Provider value={authContextValue}>
-      {children ? children : ""}
+      {loading ? null : children}
     </Context.Auth.Provider>
   );
 };

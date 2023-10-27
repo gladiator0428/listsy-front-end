@@ -32,6 +32,7 @@ export const seo_lists: { [any: string]: ISeoProps } = {
     image: "",
   },
   truck: { title: "", description: "", image: "" },
+  jobs: { title: "", description: "", image: "" },
   ads_details: {
     title: "",
     description: "",

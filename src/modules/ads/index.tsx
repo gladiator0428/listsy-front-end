@@ -17,11 +17,14 @@ import { BsBookmark, BsFlag, BsSend } from "react-icons/bs";
 import { BiLike } from "react-icons/bi";
 import { Estate } from "./Estate";
 import { Truck } from "./Truck";
+import { ImageModal } from "./ImageModal";
 
 export const AdsDetailsSection: React.FC = () => {
   const router = useRouter();
   const { id, type } = router.query;
   const [data, setData] = useState<any>(null);
+  const [imageModal, setImageModal] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
 
   useEffect(() => {
     if (id) {
@@ -30,7 +33,6 @@ export const AdsDetailsSection: React.FC = () => {
   }, [id]);
 
   const getData = async () => {
-    console.log(id, type);
     const res = await axios.post(`${SERVER_URI}/${type}/getAdDetailInfo`, {
       adId: id,
     });
@@ -42,8 +44,21 @@ export const AdsDetailsSection: React.FC = () => {
     }
   };
 
+  const handleSlideClick = (index: number) => {
+    setImageIndex(index);
+    setImageModal(true);
+  };
+
   return (
     <Styled.AdsDetailsSectionWrapper>
+      {data?.adId?.imagesFileName && (
+        <ImageModal
+          data={data?.adId?.imagesFileName}
+          index={imageIndex}
+          onClose={() => setImageModal(false)}
+          open={imageModal}
+        />
+      )}
       {data ? (
         <Styled.AdsDetailsContainer>
           <Styled.AdsDetailsVideoInfoWrapper>
@@ -131,7 +146,7 @@ export const AdsDetailsSection: React.FC = () => {
               className="mySwiper"
             >
               {data.adId?.imagesFileName?.map((item: any, key: number) => (
-                <SwiperSlide key={key}>
+                <SwiperSlide key={key} onClick={() => handleSlideClick(key)}>
                   <Image
                     src={`${SERVER_UPLOAD_URI + item}`}
                     alt={"thumbnails" + key}

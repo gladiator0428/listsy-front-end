@@ -77,7 +77,6 @@ export const RegisterForm: React.FC = () => {
             }
           />
         </div>
-        <input type="text" placeholder="Address" />
         <input
           type="text"
           placeholder="Email"
@@ -110,7 +109,7 @@ export const RegisterForm: React.FC = () => {
       <Comp.SocialButtonGroup />
       <h6>
         {"Already have an account? Please "}
-        <Link href={"/auth/login"}>Signin</Link>
+        <Link href={"/auth/login"}>Sign in</Link>
         {" now."}
       </h6>
     </Styled.LoginFormWrapper>

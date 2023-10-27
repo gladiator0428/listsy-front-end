@@ -10,6 +10,7 @@ export const FormContainer = styled.div`
 export const TextAreaFormItem = styled.div<{ height: number }>`
   height: ${({ height }) => height}px;
   border-radius: 5px;
+  width: 100%;
   border: 1px solid #afafaf;
   display: flex;
   flex-direction: column;
@@ -145,5 +146,43 @@ export const InputSelectWrapper = styled.div`
     height: 100%;
     /* appearance: none; */
     color: #afafaf;
+  }
+`;
+
+export const FormGroup = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+`;
+
+export const UploadedFilesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px dashed #ededed;
+  height: 240px;
+  overflow: auto;
+  padding: 12px;
+  h3 {
+    font-size: 14px;
+    margin: auto;
+    color: #adadad;
+    font-weight: 500;
+  }
+  div {
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      span {
+        margin-left: 6px;
+      }
+    }
+    svg {
+      cursor: pointer;
+    }
   }
 `;

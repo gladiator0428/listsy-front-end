@@ -54,7 +54,7 @@ export const Header: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setAuthContext((prev: any) => ({ ...prev, user: null }));
-    router.push("/auth/login");
+    router.push("/");
   };
 
   const handleUploadClick = () => {

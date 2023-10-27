@@ -31,7 +31,7 @@ export const SocialButtonGroup: React.FC = () => {
         render={(renderProps) => (
           <Styled.SocialButtonWrapper onClick={renderProps.onClick}>
             <Comp.GoogleIcon />
-            <span>Continuew with Google</span>
+            <span>Continue with Google</span>
           </Styled.SocialButtonWrapper>
         )}
         onSuccess={responseGoogle}
@@ -41,7 +41,7 @@ export const SocialButtonGroup: React.FC = () => {
 
       <Styled.SocialButtonWrapper onClick={linkedInLogin}>
         <Comp.LinkedinIcon />
-        <span>Continuew with Linkedin</span>
+        <span>Continue with Linkedin</span>
       </Styled.SocialButtonWrapper>
       <FacebookLogin
         appId="1088597931155576"
@@ -50,7 +50,7 @@ export const SocialButtonGroup: React.FC = () => {
         render={(renderProps) => (
           <Styled.SocialButtonWrapper onClick={renderProps.onClick}>
             <Comp.FacebookIcon />
-            <span>Continuew with Facebook</span>
+            <span>Continue with Facebook</span>
           </Styled.SocialButtonWrapper>
         )}
       />

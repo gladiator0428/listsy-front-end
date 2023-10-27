@@ -125,6 +125,7 @@ export const UploadAssetWrapper = styled.label`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border: 1px dashed #ededed;
   text-align: center;
   border-radius: 20px;
@@ -254,6 +255,7 @@ export const VideoInfoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 24px;
   padding: 12px 10px;
   div {
     width: 80%;
@@ -284,7 +286,6 @@ export const UploadModalBody = styled.div`
 `;
 
 export const PriceInputWrapper = styled.div`
-  margin-top: 24px;
   width: 100%;
   p {
     color: #000;
@@ -422,5 +423,72 @@ export const SaveButtonWrapper = styled.div`
     border: none;
     cursor: pointer;
     outline: none;
+  }
+`;
+
+export const LocationWrapper = styled.div`
+  margin-top: 20px;
+`;
+
+export const LocationSelectWrapper = styled.div`
+  margin-bottom: 12px;
+  & > p {
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .stdropdown-container {
+    border: 1px solid #afafaf !important;
+    height: 34px;
+    .stdropdown-input {
+      padding: 0;
+      height: 100%;
+      input {
+        height: 100%;
+        border: none;
+        font-size: 12px;
+        outline: none;
+        font-weight: 400;
+        padding: 6px;
+        &::placeholder {
+          color: #afafaf;
+        }
+      }
+      .stdropdown-tools {
+        .stdropdown-tool {
+          display: flex;
+          padding-right: 6px;
+          svg {
+            width: 18px;
+            height: 18px;
+            path {
+              fill: #afafaf;
+            }
+          }
+        }
+      }
+    }
+    .stdropdown-menu {
+      padding: 6px 0;
+      background: #fff;
+      box-shadow: 0px 18px 40px 0px rgba(180, 180, 180, 0.25);
+      border: none;
+      max-height: 300px;
+      border-radius: 5px;
+      .stdropdown-item {
+        color: #000;
+        font-size: 12px;
+        transition: all 0.3s;
+        font-weight: 400;
+        padding: 8px 6px;
+        &:hover {
+          background: #00000010;
+        }
+        &.selected {
+          background: #00000010;
+        }
+      }
+    }
   }
 `;

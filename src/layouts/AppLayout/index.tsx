@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { seo_lists } from "./seo";
 import { Seo } from "@/components";
 import * as Styled from "./layout.styles";

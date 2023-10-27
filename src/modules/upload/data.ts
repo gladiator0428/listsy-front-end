@@ -28,7 +28,7 @@ export const categories = [
     key: "sale",
   },
   { label: "Real Estate", key: "estate" },
-  { label: "Trucks", key: "truck" },
+  { label: "Vehicles", key: "truck" },
   { label: "Services", key: "service" },
   { label: "Pets", key: "pet" },
 ];

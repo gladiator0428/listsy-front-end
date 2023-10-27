@@ -106,7 +106,7 @@ export const UploadModal: React.FC<Props> = ({ open, onClose, onFinish }) => {
           {uploadStep === "image" && (
             <UploadThumb adId={adId} onFinish={onFinish} />
           )}
-          {uploadStep === "job" && <JobPost />}
+          {uploadStep === "job" && <JobPost onFinish={onFinish} />}
         </Styled.UploadModalBody>
       </Styled.UploadModalContainer>
       <Styled.UploadModalOverlay onClick={handleClose} />

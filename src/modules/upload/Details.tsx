@@ -8,6 +8,11 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Auth as AuthContext } from "@/context/contexts";
 import { TruckForm } from "./detailsform/TruckForm";
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+} from "react-country-state-city";
 
 type Props = {
   adLink: string;
@@ -22,10 +27,17 @@ export const Details: React.FC<Props> = ({
   adId,
   onNext,
 }) => {
+  const [countryid, setCountryid] = useState(0);
+  const [stateid, setstateid] = useState(0);
   const [copied, setCopied] = useState(false);
   const [price, setPrice] = useState("0");
   const [priceUnit, setPriceUnit] = useState("$");
   const { authContext } = useContext<any>(AuthContext);
+  const [location, setLocation] = useState({
+    addressCountry: "",
+    addressState: "",
+    addressCity: "",
+  });
 
   const handleCopyClick = () => {
     setCopied(true);
@@ -44,6 +56,7 @@ export const Details: React.FC<Props> = ({
         priceUnit,
         adId,
         userId: authContext.user?.id,
+        ...location,
       });
       if (res.data.success) {
         toast.success(res.data.message);
@@ -55,7 +68,6 @@ export const Details: React.FC<Props> = ({
   };
 
   const handleTruckFormSave = async (data: any) => {
-    console.log(data);
     if (Number(price) === 0) {
       toast.error("Enter the Price!");
     } else {
@@ -65,6 +77,7 @@ export const Details: React.FC<Props> = ({
         priceUnit,
         adId,
         userId: authContext.user?.id,
+        ...location,
       });
       if (res.data.success) {
         toast.success(res.data.message);
@@ -128,6 +141,57 @@ export const Details: React.FC<Props> = ({
               />
             </div>
           </Styled.PriceInputWrapper>
+          <Styled.LocationWrapper>
+            <Styled.LocationSelectWrapper>
+              <p>Location</p>
+              <CountrySelect
+                onChange={(e: any) => {
+                  setCountryid(e.id);
+                  setstateid(0);
+                  setLocation({
+                    addressCountry: e.name,
+                    addressCity: "",
+                    addressState: "",
+                  });
+                }}
+                showFlag={false}
+                placeHolder="Select Country"
+              />
+            </Styled.LocationSelectWrapper>
+            <Styled.LocationSelectWrapper>
+              {/* <p>State</p> */}
+              <StateSelect
+                countryid={countryid}
+                onChange={(e: any) => {
+                  if (location.addressCountry) {
+                    setstateid(e.id);
+                    setLocation((prev) => ({
+                      ...prev,
+                      addressState: e.name,
+                      addressCity: "",
+                    }));
+                  } else {
+                    toast.error("Select Country first.");
+                  }
+                }}
+                placeHolder="Select State"
+              />
+            </Styled.LocationSelectWrapper>
+            <Styled.LocationSelectWrapper>
+              {/* <p>City</p> */}
+              <CitySelect
+                countryid={countryid}
+                stateid={stateid}
+                onChange={(e: any) => {
+                  setLocation((prev) => ({
+                    ...prev,
+                    addressCity: e.name,
+                  }));
+                }}
+                placeHolder="Select City"
+              />
+            </Styled.LocationSelectWrapper>
+          </Styled.LocationWrapper>
         </Styled.VideoWrapper>
       </Styled.DetailsPreviewWrapper>
     </Styled.DetailsWrapper>

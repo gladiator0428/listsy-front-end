@@ -25,6 +25,7 @@ export const AdsDetailsThumbWrapper = styled.div`
   .mySwiper {
     .swiper-slide {
       position: relative;
+      cursor: pointer;
       span {
         position: absolute;
         display: flex;
@@ -243,4 +244,83 @@ export const InfoItemWrapper2 = styled.div`
       }
     }
   }
+`;
+
+export const ImageModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  right: 0;
+  transition: all 0.3s;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+`;
+
+export const ImageModalContainer = styled.div`
+  border-radius: 10px;
+  height: 90%;
+  max-width: 1000px;
+  width: 95%;
+  background: #fff;
+  padding: 40px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  & > svg {
+    position: absolute;
+    cursor: pointer;
+    top: 20px;
+    right: 20px;
+  }
+  & > img {
+    object-fit: contain;
+    width: 100%;
+    height: calc(100% - 200px);
+    /* height: 60%; */
+    margin-bottom: 30px;
+  }
+  .swiper-slide {
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    img {
+      object-fit: cover;
+      transition: all 0.3s;
+      border: 1px solid transparent;
+    }
+    &:hover {
+    }
+    &.selected {
+      img {
+        border: 1px solid #ff6f00;
+      }
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    &::after {
+      font-size: 30px !important;
+      color: #000000;
+      font-weight: 900;
+    }
+  }
+`;
+
+export const ImageModalOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  background: #00000050;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;

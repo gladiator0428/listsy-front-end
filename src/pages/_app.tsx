@@ -7,6 +7,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-country-state-city/dist/react-country-state-city.css";
+
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import { AppContext } from "@/context";

@@ -2,10 +2,14 @@ import React from "react";
 import * as Styled from "./upload.styles";
 import { JobForm } from "./detailsform/JobForm";
 
-export const JobPost: React.FC = () => {
+type Props = {
+  onFinish: () => void;
+};
+
+export const JobPost: React.FC<Props> = ({ onFinish }) => {
   return (
     <Styled.DetailsWrapper>
-      <JobForm />
+      <JobForm onFinish={onFinish} />
     </Styled.DetailsWrapper>
   );
 };

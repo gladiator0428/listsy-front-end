@@ -46,6 +46,7 @@ export const VideoWrapper = styled.div`
 export const VideoInfoWrapper = styled.div`
   padding: 24px 12px;
   display: flex;
+  flex-wrap: wrap;
   img {
     border-radius: 999px;
     object-fit: cover;
@@ -54,13 +55,49 @@ export const VideoInfoWrapper = styled.div`
     margin-left: 12px;
     flex: 1;
     h1 {
-      color: #000;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 20.4px; /* 145.714% */
       margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      b {
+        color: #000;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20.4px; /* 145.714% */
+        word-break: break-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        -webkit-line-clamp: 2;
+        margin-right: 8px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+      span {
+        display: block;
+        min-width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        &.Active {
+          background: #6ce243;
+        }
+        &.Suspended {
+          background: #ff9b00;
+        }
+        &.Expired {
+          background: #ff3e00;
+        }
+      }
     }
     & > div {
+      &.location {
+        flex-direction: column;
+        align-items: flex-start;
+        p:first-child {
+          margin-bottom: 8px;
+        }
+      }
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -68,10 +105,18 @@ export const VideoInfoWrapper = styled.div`
         color: #909090;
         font-size: 14px;
         font-weight: 400;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-line-clamp: 1;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        margin-right: 10px;
       }
       & > span {
         color: #afafaf;
         font-size: 10px;
+        white-space: nowrap;
         font-weight: 400;
       }
       & > p {
@@ -107,6 +152,16 @@ export const VideoInfoWrapper = styled.div`
         }
       }
     }
+  }
+  & > button {
+    border-radius: 5px;
+    border: 1px solid #eaeaea;
+    height: 32px;
+    width: 100%;
+    margin-top: 8px;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
   }
 `;
 

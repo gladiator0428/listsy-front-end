@@ -53,7 +53,7 @@ const mainNav = [
     icon: <FaBuilding />,
   },
   {
-    label: "Trucks",
+    label: "Vehicles",
     href: "/trucks",
     icon: <FaCarSide />,
   },
