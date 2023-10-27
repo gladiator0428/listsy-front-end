@@ -273,8 +273,8 @@ export const JobsPageSection: React.FC = () => {
                     </label>
                     {files.length > 0 &&
                       files.map((item, key) => (
-                        <div>
-                          <p key={key}>
+                        <div key={key}>
+                          <p>
                             <b>{item.name}</b>
                             <span>{formatBytes(item.size)}</span>
                           </p>

@@ -195,6 +195,9 @@ export const MyPosts: React.FC = () => {
                   reviewMark={item.userId?.reviewMark}
                   subtitle={item.subTitle}
                   title={item.title}
+                  country={item.addressCountry}
+                  state={item.addressState}
+                  city={item.addressCity}
                   userAvatar={item.userId?.avatar}
                   isBoost={true}
                   firstName={item.userId?.firstName}
