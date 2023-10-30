@@ -18,6 +18,7 @@ import { BiLike } from "react-icons/bi";
 import { Estate } from "./Estate";
 import { Truck } from "./Truck";
 import { ImageModal } from "./ImageModal";
+import { ForSale } from "./ForSale";
 
 export const AdsDetailsSection: React.FC = () => {
   const router = useRouter();
@@ -160,6 +161,7 @@ export const AdsDetailsSection: React.FC = () => {
               ))}
             </Swiper>
             <Styled.AdsDetailsInfoWrapper>
+              {type === "sale" && <ForSale data={data} />}
               {type === "estate" && <Estate data={data} />}
               {type === "truck" && <Truck data={data} />}
             </Styled.AdsDetailsInfoWrapper>

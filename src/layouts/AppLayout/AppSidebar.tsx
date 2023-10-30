@@ -43,8 +43,8 @@ const mainNav = [
     icon: <MdHome />,
   },
   {
-    label: "For Sale",
-    href: "/sale",
+    label: "Items For Sale",
+    href: "/sales",
     icon: <MdShoppingCartCheckout />,
   },
   {

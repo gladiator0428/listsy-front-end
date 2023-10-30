@@ -46,7 +46,7 @@ export const LoginFormGroup = styled.div`
   & > :not(:last-child) {
     margin-bottom: 40px;
   }
-  & > div {
+  & > div.form-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 40px;
@@ -65,6 +65,24 @@ export const LoginFormGroup = styled.div`
     &::placeholder {
       color: #c7c7c7;
     }
+  }
+  .react-tel-input .form-control:hover,
+  .react-tel-input .form-control:focus {
+    border: none;
+    border-bottom: 1px solid #000;
+    box-shadow: none;
+  }
+  .react-tel-input {
+    input {
+      width: 100%;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid #000;
+      border-radius: 0;
+    }
+  }
+  .country-list {
+    bottom: 50px;
   }
 `;
 

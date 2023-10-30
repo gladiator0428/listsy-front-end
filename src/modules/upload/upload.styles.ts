@@ -247,6 +247,8 @@ export const VideoWrapper = styled.div`
   flex-direction: column;
   video {
     width: 100%;
+    height: 300px;
+    object-fit: contain;
   }
 `;
 

@@ -171,7 +171,7 @@ export const EstateForm: React.FC<Props> = ({ onSave }) => {
       </Styled.InputFormItem>
       <Styled.InputFormItem>
         <input
-          type="text"
+          type="number"
           placeholder="Year Built"
           onChange={(e) =>
             setForm((prev) => ({ ...prev, yearBuilt: e.target.value }))
@@ -181,7 +181,7 @@ export const EstateForm: React.FC<Props> = ({ onSave }) => {
       </Styled.InputFormItem>
       <Styled.InputFormItem>
         <input
-          type="text"
+          type="number"
           placeholder="Built Surface"
           onChange={(e) =>
             setForm((prev) => ({ ...prev, builtSurface: e.target.value }))
@@ -202,7 +202,7 @@ export const EstateForm: React.FC<Props> = ({ onSave }) => {
       </Styled.InputFormItem>
       <Styled.InputFormItem>
         <input
-          type="text"
+          type="number"
           placeholder="Plot Surface"
           onChange={(e) =>
             setForm((prev) => ({ ...prev, plotSurface: e.target.value }))

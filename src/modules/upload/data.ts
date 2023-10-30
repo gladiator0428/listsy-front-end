@@ -24,8 +24,8 @@ export const kinds = [
 
 export const categories = [
   {
-    label: "For sale",
-    key: "sale",
+    label: "Items For sale",
+    key: "sales",
   },
   { label: "Real Estate", key: "estate" },
   { label: "Vehicles", key: "truck" },
